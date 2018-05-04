@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 import xred.android.juancamilo.instatour.Modelos.Administrador;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     EditText identificacion;
     EditText Contraseña;
     Button btnIngresa;
-    Button btnRegistro;
+    TextView btnRegistro;
 
 
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         identificacion = findViewById(R.id.editCorreo);
         Contraseña = findViewById(R.id.editContraseña);
         btnIngresa = findViewById(R.id.button);
-        btnRegistro = findViewById(R.id.button2);
+        btnRegistro = findViewById(R.id.textViewReg);
 
         btnIngresa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
 }
