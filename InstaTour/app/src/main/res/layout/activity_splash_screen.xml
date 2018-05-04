@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffff"
+    android:background="@drawable/splash_fondo"
     tools:context=".SplashScreen">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:textAlignment="center"
-            android:textColor="@color/primary_text"
+            android:textColor="#000"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:gravity="center"
@@ -37,7 +37,7 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:textAlignment="center"
-            android:textColor="@color/primary_text"
+            android:textColor="#000"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:gravity="center"
