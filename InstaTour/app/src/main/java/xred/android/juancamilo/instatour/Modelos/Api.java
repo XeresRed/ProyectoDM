@@ -19,7 +19,7 @@ public class Api {
     }
 
     public void SetBd(Context c){
-        conexion = new Connection(c, "instatour",null,1);
+        conexion = new Connection(c, "instatour1",null,1);
     }
 
     public void setId(String iden){

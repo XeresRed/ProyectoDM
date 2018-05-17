@@ -27,7 +27,8 @@ public class Usuario {
     }
 
     public void SetBd(Context c){
-        conexion = new Connection(c, "instatour",null,1);
+        conexion = new Connection(c, "instatour1",null,1);
+        //conexion.act();
     }
 
     public void setNombre(String name){
@@ -46,6 +47,7 @@ public class Usuario {
     public String getNombre(){
         return Nombre;
     }
+
 
 
     public String getContraseña() {
@@ -88,11 +90,62 @@ public class Usuario {
         return usuarios;
     }
 
-    public void registro (String email, String password, String Nombre){
+    public String registro (String email, String password, String Nombre){
         SQLiteDatabase db = conexion.getWritableDatabase();
-        final String query = "INSERT INTO usuario (CorreoU, NombreU , Contraseña ) VALUES ('" + email + "', '" + Nombre+ "', '"+ password +"')";
-        db.execSQL(query);
-        db.close();
+        String mensaje = "";
+        if(busqueda(email)){
+            String query = "INSERT INTO usuario (CorreoU, NombreU , Contraseña ) VALUES ('" + email + "', '" + Nombre+ "', '"+ password +"')";
+            db.execSQL(query);
+            mensaje = "r";
+            db.close();
+        }else{
+            mensaje = "El usuario con ese correo ya existe";
+        }
+
+        return  mensaje;
+    }
+
+    public boolean login(String id, String pass){
+        boolean log = false;
+
+        try{
+            SQLiteDatabase db = conexion.getReadableDatabase();
+
+            Cursor cur = db.rawQuery("SELECT CorreoU, NombreU , Contraseña  FROM usuario",null);
+
+            if(cur.moveToFirst()){
+                do{
+                    Log.e(TAG,"lOS DATOS SON: -" + cur.getString(0)+ "-\n-" + cur.getString(1) + "-\n-" + cur.getString(2)+ "-\n-" + id+"-\n-"+pass+"-");
+                    if(cur.getString(0).equals(id) && cur.getString(1).equals(pass))
+                    {
+                        Correo =cur.getString(0);
+                        Contraseña= cur.getString(1);
+                        Nombre = cur.getString(2);
+                        log = true;
+                    }
+                }while (cur.moveToNext());
+            }
+            db.close();
+
+        }catch (Exception e){
+            Log.e(TAG,"CARGA" + e.getMessage());
+        }
+        return log;
+    }
+
+
+    private boolean busqueda(String email) {
+        boolean log = true;
+        try {
+            SQLiteDatabase db = conexion.getWritableDatabase();
+            Cursor cur = db.rawQuery("SELECT CorreoU, NombreU , Contraseña  FROM usuario WHERE CorreoU ='" + email + "'", null);
+            if (cur.moveToFirst()) {
+                log = false;
+            }
+        }catch (Exception e){
+            Log.e(TAG,"CARGA" + e.getMessage());
+        }
+        return log;
     }
 
 }

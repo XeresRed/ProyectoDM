@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".Registro">
 
     <include
@@ -33,58 +34,97 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
-                android:layout_marginBottom="25dp"
-                android:text="Registro"
-                android:textAlignment="center"
-                android:textSize="22dp" />
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="35dp"
+                android:drawableEnd="@drawable/mapt"
+                android:textColor="@color/primary_text"
+                android:textAlignment="textStart"
+                android:text="  Registro"
+                android:textSize="25sp"
+                tools:ignore="RtlCompat"
+                android:background="@drawable/textrounder"/>
 
-            <EditText
-                android:id="@+id/idUser"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_ID"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_marginBottom="25dp"
-                android:inputType="textPersonName"
-                android:hint="Identificación" />
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/idUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:layout_marginBottom="25dp"
+                    android:inputType="text"
+                    android:drawableStart="@drawable/idcard"
+                    android:textColor="@color/primary_text"
+                    android:textColorHint="@color/primary_text"
+                    android:drawablePadding="10dp"
+                    android:hint="Nombre" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/editMailAdmin"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:ems="10"
-                android:hint="Correo electronico"
-                android:inputType="textEmailAddress" />
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/editMailAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:ems="10"
+                    android:drawablePadding="10dp"
+                    android:hint="Correo electronico"
+                    android:drawableStart="@drawable/message"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/primary_text"
+                    android:textColorHint="@color/primary_text"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/pass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/contraseña"/>
 
-            <EditText
-                android:id="@+id/pass1"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_pass"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:hint="Repita la contraseña"/>
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:drawableStart="@drawable/lock"
+                    android:textColor="@color/primary_text"
+                    android:textColorHint="@color/primary_text"
+                    android:drawablePadding="10dp"
+                    android:hint="Contraseña"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/tipo_spinner"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_pass1"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:layout_marginBottom="15dp" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/pass1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="45dp"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:textColor="@color/primary_text"
+                    android:drawableStart="@drawable/lock"
+                    android:textColorHint="@color/primary_text"
+                    android:drawablePadding="10dp"
+                    android:hint="Repita la contraseña"/>
+            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:background="@drawable/rounder"
+                android:text="Registrar" />
         </LinearLayout>
     </ScrollView>
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Menu extends AppCompatActivity {
@@ -30,14 +31,10 @@ public class Menu extends AppCompatActivity {
             permiso = b.getString("permiso");
         }
 
+        TextView t = findViewById(R.id.textView5);
+        t.setText("Bienvenido " + permiso);
 
         btnReg = findViewById(R.id.buttonRegistrar);
-
-        if(permiso.equals("Gerente")){
-            btnReg.setVisibility(View.INVISIBLE);
-        }else if(permiso.equals("Admin")){
-            btnReg.setVisibility(View.INVISIBLE);
-        }
 
 
         btnVer = findViewById(R.id.buttonVer);
