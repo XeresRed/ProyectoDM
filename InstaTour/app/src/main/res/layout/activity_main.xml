@@ -62,27 +62,12 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="150dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="65dp"
         android:shadowColor="@color/icons"
-        android:text="Acceder"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editContraseña"
-        app:layout_constraintVertical_bias="0.495" />
-
-    <Button
-        android:id="@+id/buttonr"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="35dp"
-        android:shadowColor="@color/icons"
+        android:background="@drawable/rounder"
         android:text="Acceder"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +87,7 @@
         android:layout_height="29dp"
         android:layout_marginStart="50sp"
         android:text="¿Aún no tienes cuenta?"
-
+        android:layout_gravity="center"
         android:textColor="#fff"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -116,6 +101,7 @@
         android:layout_height="29sp"
         android:layout_marginStart="10sp"
         android:text="Registrate"
+        android:layout_gravity="center"
         android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold" />

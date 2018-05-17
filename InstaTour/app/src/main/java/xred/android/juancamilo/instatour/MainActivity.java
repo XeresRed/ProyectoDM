@@ -12,6 +12,7 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 import xred.android.juancamilo.instatour.Modelos.Administrador;
 import xred.android.juancamilo.instatour.Modelos.MD5;
+import xred.android.juancamilo.instatour.Modelos.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
         btnIngresa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Administrador admin = new Administrador();
-                admin.SetBd(v.getContext());
+                Usuario client = new Usuario();
+                client.SetBd(v.getContext());
 
                 MD5 Cifrado = new MD5();
 
-                if (admin.login(identificacion.getText().toString(),Cifrado.md5(Contraseña.getText().toString()))){
+                if (client.login(identificacion.getText().toString(),Cifrado.md5(Contraseña.getText().toString()))){
                     Intent i = new Intent(v.getContext(), Menu.class);
-                    i.putExtra("permiso",admin.getTipo());
+                    i.putExtra("permiso",client.getNombre());
                     startActivity(i);
                 }else {
                     Toast.makeText(v.getContext(),"Lo siento we :(",Toast.LENGTH_SHORT).show();

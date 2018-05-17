@@ -2,6 +2,8 @@
     <string name="app_name">InstaTour</string>
     <string name="usuario">Correo</string>
     <string name="contraseña">Contraseña</string>
-
+    <string name="err_msg_name">El campo no puede estar vacio</string>
+    <string name="err_msg_email">Ingrese un correo valido</string>
+    <string name="err_msg_password">Ingrese una contraseña valida</string>
 
 </resources>
