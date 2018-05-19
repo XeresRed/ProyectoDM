@@ -71,7 +71,7 @@ public class Registro extends AppCompatActivity {
                 String password1 = EN.md5(Contraseña1.getText().toString());
 
                 if(password.equals(password1)) {
-                    String m = client.registro( email, id, password);
+                    String m = client.registro( email, id, password,"user");
                     if(m.equals("r")){
                         Toast.makeText(v.getContext(),"¡Insta fantastico! Bienvenido aventurero",Toast.LENGTH_SHORT).show();
                     }

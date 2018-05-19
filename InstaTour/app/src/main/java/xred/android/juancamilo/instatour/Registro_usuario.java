@@ -54,7 +54,7 @@ public class Registro_usuario extends AppCompatActivity {
                 if(pass_estudiante.equals(pass1_estudiante))
                 {
                     MD5 en = new MD5();
-                    user.registro(Correo_estudiante,en.md5(pass_estudiante),Nombre_estudiante);
+                    user.registro(Correo_estudiante,en.md5(pass_estudiante),Nombre_estudiante,"user");
                     Toast.makeText(v.getContext(),"Se registro el estudiante de manera correcta",Toast.LENGTH_SHORT).show();
                 }
                 else

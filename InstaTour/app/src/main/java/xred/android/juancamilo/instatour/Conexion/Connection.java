@@ -23,7 +23,7 @@ public class Connection extends SQLiteOpenHelper {
     List<Visita> Visita = null;
     List<xred.android.juancamilo.instatour.Modelos.Api> Api = null;
 
-    String query1 = "create table usuario (CorreoU TEXT PRIMARY KEY, NombreU TEXT, Contraseña TEXT);";
+    String query1 = "create table usuario (CorreoU TEXT PRIMARY KEY, NombreU TEXT, Contraseña TEXT, tipo TEXT);";
     String query2 = "create table visita (id INTEGER PRIMARY KEY AUTOINCREMENT, CorreoU TEXT, NombreCiu TEXT);";
     String query3 = "create table ciudad (NombreCiu TEXT PRIMARY KEY, Descripcion TEXT, Imagen TEXT);";
     String query4 = "create table api (id INTEGER PRIMARY KEY AUTOINCREMENT, NombreCiu TEXT, NombreApi TEXT);";

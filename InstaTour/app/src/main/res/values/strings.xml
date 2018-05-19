@@ -6,4 +6,7 @@
     <string name="err_msg_email">Ingrese un correo valido</string>
     <string name="err_msg_password">Ingrese una contraseña valida</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
