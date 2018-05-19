@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 if (client.login(identificacion.getText().toString(),Cifrado.md5(Contraseña.getText().toString()))){
                     Intent i = new Intent(v.getContext(), Menu.class);
                     i.putExtra("permiso",client.getNombre());
+                    i.putExtra("tipo",client.getTipo());
                     startActivity(i);
                 }else {
                     Toast.makeText(v.getContext(),"Lo siento we :(",Toast.LENGTH_SHORT).show();

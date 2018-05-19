@@ -16,6 +16,7 @@ public class Usuario {
     private String Correo;
     private String Nombre;
     private String Contraseña;
+    private String tipo;
     Connection conexion ;
 
     
@@ -24,6 +25,7 @@ public class Usuario {
         Correo = "";
         Nombre = "";
         Contraseña = "";
+        tipo = "";
     }
 
     public void SetBd(Context c){
@@ -62,7 +64,7 @@ public class Usuario {
         ArrayList<Usuario> usuarios = null;
         try{
             SQLiteDatabase db = conexion.getReadableDatabase();
-            Cursor cur = db.rawQuery("SELECT CorreoU, NombreU , Contraseña  FROM usuario ",null);
+            Cursor cur = db.rawQuery("SELECT CorreoU, NombreU , Contraseña, tipo  FROM usuario ",null);
 
             if(cur.moveToFirst()){
                 usuarios = new ArrayList<>();
@@ -73,6 +75,7 @@ public class Usuario {
                     persona.setCorreo(cur.getString(0));
                     persona.setNombre(cur.getString(1));
                     persona.setContraseña(cur.getString(2));
+                    persona.setTipo(cur.getString(3));
 
                     usuarios.add(persona);
 
@@ -90,11 +93,11 @@ public class Usuario {
         return usuarios;
     }
 
-    public String registro (String email, String password, String Nombre){
+    public String registro (String email, String password, String Nombre, String tipo){
         SQLiteDatabase db = conexion.getWritableDatabase();
         String mensaje = "";
         if(busqueda(email)){
-            String query = "INSERT INTO usuario (CorreoU, NombreU , Contraseña ) VALUES ('" + email + "', '" + Nombre+ "', '"+ password +"')";
+            String query = "INSERT INTO usuario (CorreoU, NombreU , Contraseña, tipo ) VALUES ('" + email + "', '" + Nombre+ "', '"+ password +"', '"+tipo+"')";
             db.execSQL(query);
             mensaje = "r";
             db.close();
@@ -111,16 +114,17 @@ public class Usuario {
         try{
             SQLiteDatabase db = conexion.getReadableDatabase();
 
-            Cursor cur = db.rawQuery("SELECT CorreoU, NombreU , Contraseña  FROM usuario",null);
+            Cursor cur = db.rawQuery("SELECT CorreoU, NombreU , Contraseña, tipo  FROM usuario",null);
 
             if(cur.moveToFirst()){
                 do{
-                    Log.e(TAG,"lOS DATOS SON: -" + cur.getString(0)+ "-\n-" + cur.getString(1) + "-\n-" + cur.getString(2)+ "-\n-" + id+"-\n-"+pass+"-");
+                    Log.e(TAG,"lOS DATOS SON: -" + cur.getString(0)+ "-\n-" + cur.getString(1) + "-\n-" + cur.getString(2)+ "-\n-"+ cur.getString(3) +"-\n-"+ id+"-\n-"+pass+"-");
                     if(cur.getString(0).equals(id) && cur.getString(1).equals(pass))
                     {
                         Correo =cur.getString(0);
                         Contraseña= cur.getString(1);
                         Nombre = cur.getString(2);
+                        tipo = cur.getString(3);
                         log = true;
                     }
                 }while (cur.moveToNext());
@@ -148,4 +152,11 @@ public class Usuario {
         return log;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }
