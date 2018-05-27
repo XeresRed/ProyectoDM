@@ -34,6 +34,10 @@ import xred.android.juancamilo.instatour.Adapters.CiudadesAdapter;
 import xred.android.juancamilo.instatour.Adapters.CiudadesAdapter.AlbumsAdapterListener;
 import xred.android.juancamilo.instatour.Modelos.Ciudad;
 
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 public class Menu extends AppCompatActivity implements AlbumsAdapterListener{
     Button btnReg;
     Button btnVer;
@@ -56,11 +60,66 @@ public class Menu extends AppCompatActivity implements AlbumsAdapterListener{
         Bundle b = getIntent().getExtras();
         if(b != null){
             permiso = b.getString("permiso");
+
+            ImageView icon = new ImageView(this); // Create an icon
+            icon.setImageResource(R.drawable.mas);
+            final FloatingActionButton fab  = new FloatingActionButton.Builder(this).setContentView(icon).build();
+
+            SubActionButton.Builder builder= new SubActionButton.Builder(this);
+
+            ImageView cliente = new ImageView(this);
+            cliente.setImageResource(R.drawable.cliente);
+            SubActionButton deleteBtn = builder.setContentView(cliente).build();
+
+            ImageView inventario = new ImageView(this);
+            inventario.setImageResource(R.drawable.inventario2);
+            SubActionButton removeBtn = builder.setContentView(inventario).build();
+
+            ImageView reporte = new ImageView(this);
+            reporte.setImageResource(R.drawable.reporte2);
+            SubActionButton addBtn = builder.setContentView(reporte).build();
+
+            final FloatingActionMenu fam = new FloatingActionMenu.Builder(this)
+                    .addSubActionView(addBtn)
+                    .addSubActionView(removeBtn)
+                    .addSubActionView(deleteBtn)
+                    .attachTo(fab)
+                    .build();
+
+            addBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(Menu.this, "boton reporte ", Toast.LENGTH_SHORT).show();
+                    fam.close(true);
+                }
+            });
+
+            removeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(Menu.this,"boton inventario" , Toast.LENGTH_SHORT).show();
+                    fam.close(true);
+                }
+            });
+
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(Menu.this,"boton cliente" , Toast.LENGTH_SHORT).show();
+                    fam.close(true);
+                }
+            });
         }
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        albumList = new ArrayList<>();
+        Ciudad ciu = new Ciudad();
+        ciu.SetBd(this);
+        albumList = ciu.traeCiudad();
+        if(albumList == null){
+            albumList = new ArrayList<>();
+            prepareAlbums();
+        }
         adapter = new CiudadesAdapter(this, albumList,this);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -68,8 +127,6 @@ public class Menu extends AppCompatActivity implements AlbumsAdapterListener{
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-        prepareAlbums();
 
         try {
             Glide.with(this).load(R.drawable.river).into((ImageView) findViewById(R.id.backdrop));

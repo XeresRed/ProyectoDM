@@ -57,7 +57,7 @@ public class Ciudad {
 
         try{
             SQLiteDatabase db = conexion.getReadableDatabase();
-            Cursor cur = db.rawQuery("SELECT *  FROM ciudad ",null);
+            Cursor cur = db.rawQuery("SELECT NombreCiu, Descripcion, Imagen  FROM ciudad ",null);
 
             if(cur.moveToFirst()){
                 ciudades = new ArrayList<>();
@@ -83,5 +83,12 @@ public class Ciudad {
             Log.e(TAG,"CARGA" + e.getMessage());
         }
         return ciudades;
+    }
+
+    public void registraCiudad(String NombreCiudad, String descripcion, String imagen ){
+        SQLiteDatabase db = conexion.getWritableDatabase();
+            String query = "INSERT INTO ciudad (NombreCiu, Descripcion , Imagen ) VALUES ('" + NombreCiudad + "', '" + descripcion+ "', '"+ imagen +"')";
+            db.execSQL(query);
+            db.close();
     }
 }
