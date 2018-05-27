@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 import xred.android.juancamilo.instatour.Modelos.Administrador;
+import xred.android.juancamilo.instatour.Modelos.Api;
+import xred.android.juancamilo.instatour.Modelos.Ciudad;
 import xred.android.juancamilo.instatour.Modelos.MD5;
 import xred.android.juancamilo.instatour.Modelos.Usuario;
 
@@ -27,11 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-        identificacion = findViewById(R.id.editCorreo);
-        Contraseña = findViewById(R.id.editContraseña);
+        identificacion=findViewById(R.id.editCorreo);
+        Contraseña=findViewById(R.id.editContraseña);
         btnIngresa = findViewById(R.id.button);
         btnRegistro = findViewById(R.id.textViewReg);
 
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Usuario client = new Usuario();
                 client.SetBd(v.getContext());
+
 
                 MD5 Cifrado = new MD5();
 

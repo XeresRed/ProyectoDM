@@ -1,0 +1,13 @@
+https://www.datos.gov.co/resource/3e2q-shug.json   -> Iglesias
+https://www.datos.gov.co/resource/bk5m-dhdb.json   -> Cajeros
+https://www.datos.gov.co/resource/tbnf-tvbj.json   -> Parques
+https://www.datos.gov.co/resource/jas6-84i5.json   -> Supermercados
+https://www.datos.gov.co/resource/n4ms-tprw.json   -> Wifi
+https://www.datos.gov.co/resource/syfn-73i7.json   -> Gasolineras 
+https://www.datos.gov.co/resource/9n8c-kkfd.json   -> Veterinarias
+https://www.datos.gov.co/resource/3qyw-vp2d.json   -> Bibliotecas
+
+Guadalajara de Buga
+
+
+https://www.datos.gov.co/resource/3e2q-shug.json$$app_token=AYNJSESuzmjGW1XaqaxlCoypr
