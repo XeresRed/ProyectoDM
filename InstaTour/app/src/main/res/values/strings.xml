@@ -5,8 +5,19 @@
     <string name="err_msg_name">El campo no puede estar vacio</string>
     <string name="err_msg_email">Ingrese un correo valido</string>
     <string name="err_msg_password">Ingrese una contraseña valida</string>
-
+    <string name="action_settings">Settings</string>
+    <string name="toolbar_title">Contacts</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Type name…</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="camera_permission">Permiso de Camara</string>
+    <string name="body_sensor_permission">Permiso de Sensores</string>
+    <string name="internet_permission">Permiso de uso de acceso a la red</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="permission_granted">Permiso Concedido</string>
+    <string name="permission_rejected">Debes aceptar los permisos para continuar</string>
 
 </resources>
