@@ -60,7 +60,7 @@ public class Api {
 
         try{
             SQLiteDatabase db = conexion.getReadableDatabase();
-            Cursor cur = db.rawQuery("SELECT id, NombreCiu , NombreApi , token , categoria FROM api ",null);
+            Cursor cur = db.rawQuery("SELECT id, NombreCiu , NombreApi , token , categoria FROM api WHERE NombreCiu='"+NombreCiudad+"' ",null);
 
             if(cur.moveToFirst()){
                 apis = new ArrayList<>();
