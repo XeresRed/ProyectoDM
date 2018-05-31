@@ -68,7 +68,7 @@ public class ApisAdapter extends RecyclerView.Adapter<ApisAdapter.MyViewHolder> 
         holder.name.setText(api.getCate());
         holder.phone.setText("Haz click para ver mas detalles");
         Glide.with(context)
-                .load("https://image.flaticon.com/icons/svg/861/861054.svg")
+                .load(api.getImg())
                 .into(holder.thumbnail);
     }
 

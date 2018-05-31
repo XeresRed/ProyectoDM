@@ -43,6 +43,7 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -59,6 +60,8 @@
             android:name=".VerSitio"
             android:label="@string/title_activity_ver_sitio" />
         <activity android:name=".sitios_tipo_1"></activity>
+        <activity android:name=".perfil"></activity>
+
     </application>
 
 </manifest>
