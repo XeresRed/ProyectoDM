@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnIngresa = findViewById(R.id.button);
         btnRegistro = findViewById(R.id.textViewReg);
 
-/*       Ciudad c = new Ciudad();
+       /*Ciudad c = new Ciudad();
         c.SetBd(this);
         c.registraCiudad("Guadalajara de Buga","Buga es una ciudad situada al oeste del departamento Valle del Cauca (Colombia). Es conocida por su emblemática basílica del Señor de los Milagros","http://valleesvalle.com/web/media/k2/items/cache/a07bb170c4a36161aa1f8f4859c19794_L.jpg");
 
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         a.registraApi("5","Guadalajara de Buga","https://www.datos.gov.co/resource/n4ms-tprw.json","AYNJSESuzmjGW1XaqaxlCoypr","Wi Fi");
         a.registraApi("6","Guadalajara de Buga","https://www.datos.gov.co/resource/syfn-73i7.json","AYNJSESuzmjGW1XaqaxlCoypr","Gasolineras");
         a.registraApi("7","Guadalajara de Buga","https://www.datos.gov.co/resource/9n8c-kkfd.json","AYNJSESuzmjGW1XaqaxlCoypr","Veterinarias");
-        a.registraApi("8","Guadalajara de Buga","https://www.datos.gov.co/resource/3qyw-vp2d.json","AYNJSESuzmjGW1XaqaxlCoypr","Bibliotecas");
 */
+
 
         btnIngresa.setOnClickListener(new View.OnClickListener() {
             @Override

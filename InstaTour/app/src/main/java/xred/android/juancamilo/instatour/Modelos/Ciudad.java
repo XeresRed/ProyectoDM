@@ -27,6 +27,7 @@ public class Ciudad {
 
     public void SetBd(Context c){
         conexion = new Connection(c, "instatour1",null,1);
+        //conexion.act();
     }
 
     public void setNomCiu(String NombreCiu){
