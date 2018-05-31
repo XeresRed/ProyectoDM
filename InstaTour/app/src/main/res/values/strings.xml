@@ -19,5 +19,8 @@
     <string name="cancel">Cancelar</string>
     <string name="permission_granted">Permiso Concedido</string>
     <string name="permission_rejected">Debes aceptar los permisos para continuar</string>
+    <string name="title_activity_ver_sitio">Map</string>
+
+    <string name="Vermas"><u>Ver más</u></string>
 
 </resources>

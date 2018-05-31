@@ -118,7 +118,7 @@ public class Menu extends AppCompatActivity implements AlbumsAdapterListener{
         albumList = ciu.traeCiudad();
         if(albumList == null){
             albumList = new ArrayList<>();
-            prepareAlbums();
+            //prepareAlbums();
         }
         adapter = new CiudadesAdapter(this, albumList,this);
 
@@ -226,7 +226,6 @@ public class Menu extends AppCompatActivity implements AlbumsAdapterListener{
 
     @Override
     public void onCardSelected(int position, ImageView thumbnail) {
-        Toast.makeText(this,"Bien guey seleccionaste: " + albumList.get(position).getNomCiu(),Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, sitiosInteres.class);
         i.putExtra("ciudad",albumList.get(position).getNomCiu());
         startActivity(i);
