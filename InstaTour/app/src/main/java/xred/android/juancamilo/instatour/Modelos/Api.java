@@ -18,6 +18,7 @@ public class Api {
     private String NomApi;
     private String tok;
     private String cate;
+    private int img;
     Connection conexion ;
     List<Api> apis = null;
 
@@ -27,6 +28,7 @@ public class Api {
         NomApi = "";
         tok = "";
         cate = "";
+        img = 0;
     }
 
     public void SetBd(Context c){
@@ -41,6 +43,12 @@ public class Api {
 
     public void setNomApi(String NombreApi) { NomApi = NombreApi; }
 
+    public void setTok(String tok) { this.tok = tok; }
+
+    public void setCate(String cate) { this.cate = cate; }
+
+    public void setImg(int img) { this.img = img; }
+
 
     public String getId(){ return Id; }
 
@@ -50,17 +58,19 @@ public class Api {
 
     public String getTok() { return tok; }
 
-    public void setTok(String tok) { this.tok = tok; }
-
     public String getCate() { return cate; }
 
-    public void setCate(String cate) { this.cate = cate; }
+    public int getImg() { return img; }
+
+
+
+
 
     public List<Api> traeApi(String NombreCiudad){
 
         try{
             SQLiteDatabase db = conexion.getReadableDatabase();
-            Cursor cur = db.rawQuery("SELECT id, NombreCiu , NombreApi , token , categoria FROM api WHERE NombreCiu='"+NombreCiudad+"' ",null);
+            Cursor cur = db.rawQuery("SELECT id, NombreCiu , NombreApi , token , categoria , imagen FROM api WHERE NombreCiu='"+NombreCiudad+"' ",null);
 
             if(cur.moveToFirst()){
                 apis = new ArrayList<>();
@@ -73,11 +83,12 @@ public class Api {
                     ap.setNomApi(cur.getString(2));
                     ap.setTok(cur.getString(3));
                     ap.setCate(cur.getString(4));
+                    ap.setImg(cur.getInt(5));
 
                     apis.add(ap);
 
 
-                    Log.v(TAG,"ACTIVIDAD TRAE Api " + ap.getId() + "\n Nombre Ciudad " + ap.getNomCiu() + "\n Nombre Api " + ap.getNomApi()+ " \n Token" + ap.getTok() + " \n Categoria " + ap.getCate());
+                    Log.v(TAG,"ACTIVIDAD TRAE Api " + ap.getId() + "\n Nombre Ciudad " + ap.getNomCiu() + "\n Nombre Api " + ap.getNomApi()+ " \n Token" + ap.getTok() + " \n Categoria " + ap.getCate() + "\n imagen" + ap.getImg());
 
                 }while (cur.moveToNext());
 
@@ -90,10 +101,12 @@ public class Api {
         return apis;
     }
 
-    public void registraApi(String idApi, String nombreCiudad, String nombreApi , String tok, String categ ){
+    public void registraApi(String idApi, String nombreCiudad, String nombreApi , String tok, String categ , int img){
         SQLiteDatabase db = conexion.getWritableDatabase();
-        String query = "INSERT INTO api (id, NombreCiu , NombreApi , token , categoria ) VALUES ('" + idApi + "', '" + nombreCiudad+ "', '"+ nombreApi + "' , '" + tok + "' , '" + categ +"')";
+        String query = "INSERT INTO api (id, NombreCiu , NombreApi , token , categoria , imagen) VALUES ('" + idApi + "', '" + nombreCiudad+ "', '"+ nombreApi + "' , '" + tok + "' , '" + categ +"' , '"+ img  +"')";
         db.execSQL(query);
         db.close();
     }
+
+
 }

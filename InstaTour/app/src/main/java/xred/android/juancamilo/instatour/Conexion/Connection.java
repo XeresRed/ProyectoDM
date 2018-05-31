@@ -26,7 +26,7 @@ public class Connection extends SQLiteOpenHelper {
     String query1 = "create table usuario (CorreoU TEXT PRIMARY KEY, NombreU TEXT, Contraseña TEXT, tipo TEXT);";
     String query2 = "create table visita (id INTEGER PRIMARY KEY AUTOINCREMENT, CorreoU TEXT, NombreCiu TEXT);";
     String query3 = "create table ciudad (NombreCiu TEXT PRIMARY KEY, Descripcion TEXT, Imagen TEXT);";
-    String query4 = "create table api (id INTEGER PRIMARY KEY AUTOINCREMENT, NombreCiu TEXT, NombreApi TEXT,token TEXT, categoria TEXT);";
+    String query4 = "create table api (id INTEGER PRIMARY KEY AUTOINCREMENT, NombreCiu TEXT, NombreApi TEXT,token TEXT, categoria TEXT , imagen INTEGER);";
 
 
     public  Connection(Context context, String nameBd, SQLiteDatabase.CursorFactory factory, int version){
