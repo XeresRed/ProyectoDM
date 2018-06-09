@@ -17,7 +17,7 @@ public class Ciudad {
     private String Descrip;
     private String Imag;
     Connection conexion ;
-    List<Ciudad> ciudades = null;
+    List<Ciudad> ciudades = new ArrayList<>();
 
     public Ciudad(){
         NomCiu = "";
@@ -27,7 +27,7 @@ public class Ciudad {
 
     public void SetBd(Context c){
         conexion = new Connection(c, "instatour1",null,1);
-        //conexion.act();
+        //conexion.borrarBD();
     }
 
     public void setNomCiu(String NombreCiu){

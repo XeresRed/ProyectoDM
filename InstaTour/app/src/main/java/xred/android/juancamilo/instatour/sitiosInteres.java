@@ -32,6 +32,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -75,8 +77,9 @@ public class sitiosInteres extends AppCompatActivity implements ApisAdapter.apiA
     ArrayList<Double>  deltaLong = new ArrayList<>();
     ArrayList<Double> cordenadasLat = new ArrayList<>();
     ArrayList<Double> cordenadasLon = new ArrayList<>();
-    Pintar obj;
     boolean flag = false;
+    TextView t1,t2;
+    ImageView im1;
 
 
     @Override
@@ -89,11 +92,7 @@ public class sitiosInteres extends AppCompatActivity implements ApisAdapter.apiA
         if (b != null) {
             permiso = b.getString("ciudad");
         }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
-        } else {
-            locationStart();
-        }
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -111,7 +110,9 @@ public class sitiosInteres extends AppCompatActivity implements ApisAdapter.apiA
         mAdapter = new ApisAdapter(this, apiList, this);
 
         // white background notification bar
-        whiteNotificationBar(recyclerView);
+        //whiteNotificationBar(recyclerView);
+
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -120,78 +121,6 @@ public class sitiosInteres extends AppCompatActivity implements ApisAdapter.apiA
         recyclerView.setAdapter(mAdapter);
     }
 
-    private void locationStart() {
-        if(checkLocationPermission()) {
-            LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            LocationManager locationManager = (LocationManager)
-                    getSystemService(Context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(location != null) {
-                latitud = location.getLatitude();
-                longitud = location.getLongitude();
-                Toast.makeText(this, "LOCACION: " + longitud + " / " + latitud, Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this, "LOCACION:Soy nulo", Toast.LENGTH_SHORT).show();
-            }
-
-        Localizacion Local = new Localizacion();
-        Local.setMainActivity(this);
-        final boolean gpsEnabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!gpsEnabled) {
-            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(settingsIntent);
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
-            return;
-        }
-        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, Local);
-        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, Local);
-        }else
-        {
-            Toast.makeText(this,"No tiene los permisos necesarios", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 1000) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationStart();
-                return;
-            }
-        }
-    }
-
-    public boolean checkLocationPermission()
-    {
-        String permission = "android.permission.ACCESS_FINE_LOCATION";
-        int res = this.checkCallingOrSelfPermission(permission);
-        return (res == PackageManager.PERMISSION_GRANTED);
-    }
-
-    public void setLocation(Location loc) {
-        //Obtener la direccion de la calle a partir de la latitud y la longitud
-        if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
-            try {
-                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-                List<Address> list = geocoder.getFromLocation(
-                        loc.getLatitude(), loc.getLongitude(), 1);
-                if (!list.isEmpty()) {
-                    Address DirCalle = list.get(0);
-                    Log.v("Dirección","Mi direccion es: \n"
-                            + DirCalle.getAddressLine(0));
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -260,11 +189,11 @@ public class sitiosInteres extends AppCompatActivity implements ApisAdapter.apiA
 
     @Override
     public void onApiSelected(Api contact) {
-        Toast.makeText(getApplicationContext(), "Selected: " + contact.getCate(), Toast.LENGTH_LONG).show();
-        seleccion(contact.getCate(), contact.getNomApi());
+        //Toast.makeText(getApplicationContext(), "Selected: " + contact.getCate(), Toast.LENGTH_LONG).show();
+        seleccion(contact.getCate(), contact.getNomApi(), contact.getTok());
     }
 
-    private void seleccion(String categoria, String url) {
+    private void seleccion(String categoria, String url,String key) {
         Intent i;
         switch (categoria){
             case "Iglesias":
@@ -299,221 +228,31 @@ public class sitiosInteres extends AppCompatActivity implements ApisAdapter.apiA
                 i.putExtra("longitud_user",longitud );
                 startActivity(i);
                 break;
-        }
-    }
-
-    private void cargaApi(String uri){
-        try {
-            cordenadasLat.clear();
-            cordenadasLon.clear();
-
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-
-            URL url = null;
-            HttpURLConnection conn;
-
-            url = new URL(uri);
-            conn = (HttpURLConnection) url.openConnection();
-
-            conn.setRequestMethod("GET");
-            conn.connect();
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            String json = "";
-
-            while ((inputLine = in.readLine()) != null){
-                response.append(inputLine);
-            }
-
-            json = response.toString();
-
-            JSONArray jarrau = null;
-
-            jarrau = new JSONArray(json);
-
-            for( int i = 0; i < jarrau.length(); i++){
-                JSONObject object =jarrau.getJSONObject(i);
-                JSONObject c = object.optJSONObject("georeferencia");
-                Log.v("SALIDA", object.optString("georeferencia"));
-
-                JSONArray jsonArray = c.getJSONArray("coordinates");
-                if (jsonArray != null) {
-                    int len = jsonArray.length();
-                    for (int j=0;j<len;j++){
-                        if(j%2 == 0) {
-                            deltaLong.add(Double.parseDouble(jsonArray.get(j).toString())-longitud);
-                            cordenadasLon.add(Double.parseDouble(jsonArray.get(j).toString()));
-                        }else {
-                            detalLat.add(Double.parseDouble(jsonArray.get(j).toString())-latitud);
-                            cordenadasLat.add(Double.parseDouble(jsonArray.get(j).toString()));
-                        }
-                    }
-                }
-
-            }
-            double radio_ecuatiorial = 6378.137;
-            for(int x = 0; x < deltaLong.size(); x++){
-                double a = Math.pow(Math.sin(detalLat.get(x)/2),2) + Math.cos(cordenadasLat.get(x)) * Math.cos(latitud)  * Math.sin(deltaLong.get(x)/2);
-                double c_ = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                Distancias.add(radio_ecuatiorial * c_);
-                Log.v("SALIDA2","La distancia en kilometros es: " + radio_ecuatiorial * c_ );
-            }
-            Intent i = new Intent(this, VerSitio.class);
-             //i.putExtra("x",Double.parseDouble(cordenadas.get(0)) );
-            //i.putExtra("y",Double.parseDouble(cordenadas.get(1)) );
-            startActivity(i);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /* Aqui empieza la Clase Localizacion */
-    public class Localizacion implements LocationListener {
-        sitiosInteres mainActivity;
-
-        public sitiosInteres getMainActivity() {
-            return mainActivity;
-        }
-
-        public void setMainActivity(sitiosInteres mainActivity) {
-            this.mainActivity = mainActivity;
-        }
-
-        @Override
-        public void onLocationChanged(Location loc) {
-            // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
-            // debido a la deteccion de un cambio de ubicacion
-            if(latitud == 0.0) {
-                latitud = loc.getLatitude();
-                longitud = loc.getLongitude();
-
-                String Text = "Mi ubicacion actual es: " + "\n Lat = "
-                        + loc.getLatitude() + "\n Long = " + loc.getLongitude();
-                Log.v("LOCALIZACION", Text);
-                //Toast.makeText(mainActivity,Text,Toast.LENGTH_SHORT).show();
-                this.mainActivity.setLocation(loc);
-            }
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-            // Este metodo se ejecuta cuando el GPS es desactivado
-            //coordenadas.setText("GPS Desactivado");
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-            // Este metodo se ejecuta cuando el GPS es activado
-            //coordenadas.setText("GPS Activado");
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            switch (status) {
-                case LocationProvider.AVAILABLE:
-                    Log.d("debug", "LocationProvider.AVAILABLE");
-                    break;
-                case LocationProvider.OUT_OF_SERVICE:
-                    Log.d("debug", "LocationProvider.OUT_OF_SERVICE");
-                    break;
-                case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    Log.d("debug", "LocationProvider.TEMPORARILY_UNAVAILABLE");
-                    break;
-            }
-        }
-    }
-
-    public class Pintar extends AsyncTask<Void,Void,Void>  implements LocationListener{
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            flag=true;
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            while (flag){
-                publishProgress();
-                if (isCancelled()){
-                    break;
-                }
-            }
-            return null;
-        }
-        protected void onProgressUpdate(Void... voids) {
-            super.onProgressUpdate();
-
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            flag=false;
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            flag=false;
-
-        }
-
-        sitiosInteres mainActivity;
-
-        public sitiosInteres getMainActivity() {
-            return mainActivity;
-        }
-
-        public void setMainActivity(sitiosInteres mainActivity) {
-            this.mainActivity = mainActivity;
-        }
-
-        @Override
-        public void onLocationChanged(Location loc) {
-            // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
-            // debido a la deteccion de un cambio de ubicacion
-
-            loc.getLatitude();
-            loc.getLongitude();
-            latitud = loc.getLatitude();
-            longitud = loc.getLongitude();
-            String Text = "Mi ubicacion actual es: " + "\n Lat = "
-                    + loc.getLatitude() + "\n Long = " + loc.getLongitude();
-            Log.v("LOCALIZACION", Text);
-            //Toast.makeText(mainActivity,Text,Toast.LENGTH_SHORT).show();
-            this.mainActivity.setLocation(loc);
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-            // Este metodo se ejecuta cuando el GPS es desactivado
-            //coordenadas.setText("GPS Desactivado");
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-            // Este metodo se ejecuta cuando el GPS es activado
-            //coordenadas.setText("GPS Activado");
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-            switch (status) {
-                case LocationProvider.AVAILABLE:
-                    Log.d("debug", "LocationProvider.AVAILABLE");
-                    break;
-                case LocationProvider.OUT_OF_SERVICE:
-                    Log.d("debug", "LocationProvider.OUT_OF_SERVICE");
-                    break;
-                case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    Log.d("debug", "LocationProvider.TEMPORARILY_UNAVAILABLE");
-                    break;
-            }
+            case "Cajeros":
+                i = new Intent(this, sitios_tipo_1.class);
+                i.putExtra("link", url );
+                i.putExtra("categoria",categoria );
+                i.putExtra("latitud_user", latitud );
+                i.putExtra("longitud_user",longitud );
+                startActivity(i);
+                break;
+            case "Parques":
+                i = new Intent(this, sitios_tipo_2.class);
+                i.putExtra("link", url );
+                i.putExtra("key", key );
+                i.putExtra("categoria",categoria );
+                i.putExtra("latitud_user", latitud );
+                i.putExtra("longitud_user",longitud );
+                startActivity(i);
+                break;
+            case "Gasolineras":
+                i = new Intent(this, sitios_tipo_2.class);
+                i.putExtra("link", url );
+                i.putExtra("categoria",categoria );
+                i.putExtra("latitud_user", latitud );
+                i.putExtra("longitud_user",longitud );
+                startActivity(i);
+                break;
         }
     }
 }

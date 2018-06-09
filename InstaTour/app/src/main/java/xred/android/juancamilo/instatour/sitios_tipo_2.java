@@ -31,7 +31,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -46,34 +45,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import xred.android.juancamilo.instatour.Adapters.ApisAdapter;
 import xred.android.juancamilo.instatour.Adapters.DecoracionAdapter;
 import xred.android.juancamilo.instatour.Adapters.ItemsAdapter;
+import xred.android.juancamilo.instatour.Adapters.ItemsAdapter1;
 import xred.android.juancamilo.instatour.Json.ItemsTipo1;
-import xred.android.juancamilo.instatour.Modelos.Api;
+import xred.android.juancamilo.instatour.Json.ItemsTipo2;
 
-public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.apiAdapterListener,LocationListener {
+public class sitios_tipo_2 extends AppCompatActivity implements ItemsAdapter1.apiAdapterListener, LocationListener{
     private static final String TAG = sitiosInteres.class.getSimpleName();
     private RecyclerView recyclerView;
-    private ItemsAdapter mAdapter;
+    private ItemsAdapter1 mAdapter;
     private SearchView searchView;
-    String dato1 = "";
-    String dato2 = "";
-    String dato3= "";
-    String dato4= "";
+    String dato1 = ""; //Nombre
+    String dato2 = ""; // dato1
+    String dato3= "";// Dato 2
+    String dato4= "";//Dato 3
+    String dato5= "";//Direccion
     Double Latitud;
     Double Longitud;
     String sobreText = "";
-    List<ItemsTipo1> datosapi;
+    String sobreText1 = "";
+    String sobreText2 = "";
+    Boolean pass = true;
+    LocationManager mlocManager;
+
+    List<ItemsTipo2> datosapi;
     double latitud = 0.0;
     double longitud = 0.0;
-    LocationManager mlocManager;
-    boolean pass = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sitios_tipo_1);
+        setContentView(R.layout.activity_sitios_tipo_2);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,21 +87,25 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
 
         String url = "";
         String categoria = "";
+        String tok = "";
         Bundle b = getIntent().getExtras();
         if (b != null) {
             url = b.getString("link");
             categoria = b.getString("categoria");
+            tok = b.getString("key");
         }
-
+        Toast.makeText(this,"url : " + url + " CATEGORIA: " + categoria, Toast.LENGTH_LONG).show();
         calculaCat(categoria);
-        cargaApi(url);
+        if(categoria.equals("Parques")){
+            cargaApi(url+"$$app_token="+tok);
+        }else{        cargaApi(url);}
 
         recyclerView = findViewById(R.id.recycler_view);
 
-        mAdapter = new ItemsAdapter(this,datosapi,this);
+        mAdapter = new ItemsAdapter1(this,datosapi,this);
 
         // white background notification bar
-        //whiteNotificationBar(recyclerView);
+       // whiteNotificationBar(recyclerView);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -110,7 +117,6 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
         } else {
             locationStart();
         }
-
     }
 
     public boolean checkLocationPermission()
@@ -126,7 +132,6 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
                 return;
             }
-
             mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             LocationManager locationManager = (LocationManager)
                     getSystemService(Context.LOCATION_SERVICE);
@@ -212,13 +217,13 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
     }
 
     public static double redondearDecimales(double valorInicial, int numeroDecimales) {
-            double parteEntera, resultado;
-            resultado = valorInicial;
-            parteEntera = Math.floor(resultado);
-            resultado=(resultado-parteEntera)*Math.pow(10, numeroDecimales);
-            resultado=Math.round(resultado);
-            resultado=(resultado/Math.pow(10, numeroDecimales))+parteEntera;
-            return resultado;
+        double parteEntera, resultado;
+        resultado = valorInicial;
+        parteEntera = Math.floor(resultado);
+        resultado=(resultado-parteEntera)*Math.pow(10, numeroDecimales);
+        resultado=Math.round(resultado);
+        resultado=(resultado/Math.pow(10, numeroDecimales))+parteEntera;
+        return resultado;
     }
 
     @Override
@@ -252,40 +257,25 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
 
     private void calculaCat(String categoria) {
         switch (categoria){
-            case "Iglesias":
-                dato1 = "parroquia";
-                dato2 = "horario_de_eucarist_as";
-                dato3 = "fiesta_patronal";
-                dato4 = "direcci_n";
-                sobreText = "Fiestas: ";
+            case "Parques":
+                dato1 = "nombre_del_parque";
+                dato2 = "cancha_multiple";
+                dato3 = "juegos_infantiles";
+                dato4 = "zona_wi_fi";
+                dato5 = "direcci_n";
+                sobreText = "¿Canchas de deportes?: ";
+                sobreText1 = "¿Juegos?: ";
+                sobreText2 = "¿Zona wi fi?: ";
                 break;
-            case "Veterinarias":
-                dato1 = "nombre";
-                dato2 = "representante";
-                dato3 = "telefono";
-                dato4 = "direcci_n";
-                sobreText = "Teléfono: ";
-                break;
-            case "Supermercados":
+            case "Gasolineras":
                 dato1 = "establecimiento";
-                dato2 = "horarios";
-                dato3 = "tarjetas_de_cr_dito";
-                dato4 = "direcci_n";
-                sobreText = "¿Acepta tarjetas de crédito?: ";
-                break;
-            case "Wi Fi":
-                dato1 = "nombre_de_la_zona_wifi";
-                dato2 = "ancho_de_banda";
-                dato3 = "direcci_n";
-                dato4 = "direcci_n";
-                sobreText = "";
-                break;
-            case "Cajeros":
-                dato1 = "nombre";
-                dato2 = "disponibilidad";
-                dato3 = "d_as_de_atencion";
-                dato4 = "direccion";
-                sobreText = "Tipo de cajero: ";
+                dato2 = "dat_fono";
+                dato3 = "gas";
+                dato4 = "aire";
+                dato5 = "direcci_n";
+                sobreText = "¿Reciben tarjeta?: ";
+                sobreText1 = "¿Tienen gas?: ";
+                sobreText2 = "¿Monta llantas?: ";
                 break;
         }
     }
@@ -357,7 +347,7 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
     }
 
     @Override
-    public void onApiSelected(ItemsTipo1 contact) {
+    public void onApiSelected(ItemsTipo2 contact) {
         //Toast.makeText(getApplicationContext(), "Locacion:  Lat: " + contact.getLatitud() + " / Long: " + contact.getLongitud(), Toast.LENGTH_LONG).show();
         Intent i = new Intent(this, VerSitio.class);
         i.putExtra("nombre", contact.getNombre()  );
@@ -401,21 +391,16 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
             jarrau = new JSONArray(json);
 
             for( int i = 0; i < jarrau.length(); i++) {
-                ItemsTipo1 it = new ItemsTipo1();
+                ItemsTipo2 it = new ItemsTipo2();
                 JSONObject object = jarrau.getJSONObject(i);
-                if(dato2.equals("disponibilidad")){
-                    it.setNombre("Cajero de " + object.optString(dato1));
-                    it.setDato1("Disponibilidad de " + object.optString(dato3) + " " + object.optString(dato2));
-                    it.setDato2(sobreText + object.optString("tipo"));
-                    it.setDireccion(object.optString(dato4));
-                    it.setDistancia(0.0);
-                }else{
-                    it.setNombre(object.optString(dato1));
-                    it.setDato1(object.optString(dato2));
-                    it.setDato2(sobreText + object.optString(dato3));
-                    it.setDireccion(object.optString(dato4));
-                    it.setDistancia(0.0);
-                }
+
+                it.setNombre(object.optString(dato1));
+                it.setDato1(sobreText + object.optString(dato2));
+                it.setDato2(sobreText1 + object.optString(dato3));
+                it.setDato3(sobreText2 + object.optString(dato4));
+                it.setDireccion(object.optString(dato5));
+                it.setDistancia(0.0);
+
 
                 JSONObject c = object.optJSONObject("georeferencia");
                 JSONArray locacion = c.getJSONArray("coordinates");
@@ -441,13 +426,13 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
 
     /* Aqui empieza la Clase Localizacion */
     public class Localizacion implements LocationListener {
-        sitios_tipo_1 mainActivity;
+        sitios_tipo_2 mainActivity;
 
-        public sitios_tipo_1 getMainActivity() {
+        public sitios_tipo_2 getMainActivity() {
             return mainActivity;
         }
 
-        public void setMainActivity(sitios_tipo_1 mainActivity) {
+        public void setMainActivity(sitios_tipo_2 mainActivity) {
             this.mainActivity = mainActivity;
         }
 
@@ -459,9 +444,9 @@ public class sitios_tipo_1 extends AppCompatActivity implements ItemsAdapter.api
                 latitud = loc.getLatitude();
                 longitud = loc.getLongitude();
 
-                    int r = 6371000; //radio terrestre medio, en metros
+                int r = 6371000; //radio terrestre medio, en metros
 
-                    Double c = Math.PI/180; //constante para transformar grados en radianes
+                Double c = Math.PI/180; //constante para transformar grados en radianes
 
                 //  Fórmula de haversine
                 for(int x = 0; x < datosapi.size(); x++) {

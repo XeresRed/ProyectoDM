@@ -5,13 +5,21 @@ public class ItemsTipo2 {
     private String dato1;
     private String dato2;
     private String dato3;
+    private String direccion;
+    private Double Latitud;
+    private Double Longitud;
     private String url;
+    private double distancia;
 
     public ItemsTipo2(){
         nombre = "";
         dato1 = "";
         dato2 = "";
         dato3 = "";
+        direccion = "";
+        Latitud = 0.0;
+        Longitud = 0.0;
+        distancia = 0.0;
         url = "";
     }
 
@@ -45,5 +53,45 @@ public class ItemsTipo2 {
 
     public void setDato3(String dato3) {
         this.dato3 = dato3;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Double getLatitud() {
+        return Latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        Latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return Longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        Longitud = longitud;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
     }
 }
