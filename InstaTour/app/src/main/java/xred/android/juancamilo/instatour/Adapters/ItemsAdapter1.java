@@ -2,7 +2,6 @@ package xred.android.juancamilo.instatour.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -11,35 +10,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import xred.android.juancamilo.instatour.Json.ItemsTipo1;
-import xred.android.juancamilo.instatour.Modelos.Api;
+import xred.android.juancamilo.instatour.Json.ItemsTipo2;
 import xred.android.juancamilo.instatour.R;
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> implements Filterable {
+public class ItemsAdapter1 extends RecyclerView.Adapter<ItemsAdapter1.MyViewHolder> implements Filterable {
 
     private Context context;
-    private List<ItemsTipo1> apiList;
-    private List<ItemsTipo1> apiListFiltered;
+    private List<ItemsTipo2> apiList;
+    private List<ItemsTipo2> apiListFiltered;
     private apiAdapterListener listener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, subtitle1, subtitle2,Subtitle3,Distancia1;
+        public TextView name, subtitle1, subtitle2,Subtitle3, Subtitle4, Distancia1;
 
         public MyViewHolder(View view) {
             super(view);
-            name = view.findViewById(R.id.tipo_name_1);
-            subtitle1 = view.findViewById(R.id.tipo_sub_1);
-            subtitle2 = view.findViewById(R.id.tipo_sub_2);
-            Subtitle3 = view.findViewById(R.id.tipo_sub_3);
-            Distancia1 = view.findViewById(R.id.Distancia);
+            name = view.findViewById(R.id.tipo2_name_1);
+            subtitle1 = view.findViewById(R.id.tipo2_sub_1);
+            subtitle2 = view.findViewById(R.id.tipo2_sub_2);
+            Subtitle3 = view.findViewById(R.id.tipo2_sub_3);
+            Subtitle4 = view.findViewById(R.id.tipo2_sub_4);
+            Distancia1 = view.findViewById(R.id.Distancia1);
+
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -51,7 +49,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         }
     }
 
-    public ItemsAdapter(Context context, List<ItemsTipo1> apiList, apiAdapterListener listener) {
+    public ItemsAdapter1(Context context, List<ItemsTipo2> apiList, apiAdapterListener listener) {
         this.context = context;
         this.listener = listener;
         this.apiList = apiList;
@@ -61,7 +59,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.sitios_tipo1_rows, parent, false);
+                .inflate(R.layout.sitios_tipo2_rows, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -69,7 +67,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
-        final ItemsTipo1 api = apiListFiltered.get(position);
+        final ItemsTipo2 api = apiListFiltered.get(position);
         String mystring=new String("Ver más");
         SpannableString content = new SpannableString(mystring);
         content.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
@@ -78,7 +76,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         holder.subtitle2.setText(api.getDato2());
         holder.Subtitle3.setText(content);
         holder.Subtitle3.setTextColor(holder.Subtitle3.getContext().getResources().getColor(R.color.accent));
-        holder.Distancia1.setText(api.getDistancia() + " Km");
+        holder.Subtitle4.setText(api.getDato3());
+        holder.Distancia1.setText(api.getDistancia()+ " Km");
 
     }
 
@@ -96,8 +95,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
                 if (charString.isEmpty()) {
                     apiListFiltered = apiList;
                 } else {
-                    List<ItemsTipo1> filteredList = new ArrayList<>();
-                    for (ItemsTipo1 row : apiList) {
+                    List<ItemsTipo2> filteredList = new ArrayList<>();
+                    for (ItemsTipo2 row : apiList) {
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
@@ -115,14 +114,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             }
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                apiListFiltered = (ArrayList<ItemsTipo1>) filterResults.values;
+                apiListFiltered = (ArrayList<ItemsTipo2>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
     }
 
     public interface apiAdapterListener {
-        void onApiSelected(ItemsTipo1 contact);
+        void onApiSelected(ItemsTipo2 contact);
     }
 
 }

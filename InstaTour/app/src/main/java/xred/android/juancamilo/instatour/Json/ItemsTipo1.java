@@ -7,6 +7,7 @@ public class ItemsTipo1 {
     private String url;
     private String direccion;
     private Double Latitud;
+    private double distancia;
     private Double Longitud;
 
     public ItemsTipo1(){
@@ -15,6 +16,7 @@ public class ItemsTipo1 {
         dato2 = "";
         url = "";
         direccion = "";
+        distancia = 0.0;
     }
 
     public String getNombre() {
@@ -71,5 +73,13 @@ public class ItemsTipo1 {
 
     public void setLatitud(Double latitud) {
         Latitud = latitud;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
     }
 }

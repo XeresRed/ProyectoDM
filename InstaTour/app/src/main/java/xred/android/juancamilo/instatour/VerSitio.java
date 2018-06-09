@@ -12,6 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -48,7 +49,6 @@ public class VerSitio extends FragmentActivity implements
             longitud = b.getDouble("long");
             latitud_user = b.getDouble("lati_user");
             longitud_user = b.getDouble("longi_user");
-
         }
     }
 
@@ -75,6 +75,14 @@ public class VerSitio extends FragmentActivity implements
                 .position(sydney)
                 .title(Nombre)
                 .snippet(Direccion)
+        );
+
+        LatLng User = new LatLng(latitud_user, longitud_user);
+
+        mMap.addMarker(new MarkerOptions()
+                .position(User)
+                .title("Tu posicion actual")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
         );
        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));

@@ -59,9 +59,9 @@
         <activity
             android:name=".VerSitio"
             android:label="@string/title_activity_ver_sitio" />
-        <activity android:name=".sitios_tipo_1"></activity>
-        <activity android:name=".perfil"></activity>
-
+        <activity android:name=".sitios_tipo_1" />
+        <activity android:name=".perfil" />
+        <activity android:name=".sitios_tipo_2"></activity>
     </application>
 
 </manifest>

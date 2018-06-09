@@ -11,8 +11,8 @@
 
 
     <TextView
-        android:id="@+id/tipo_name_1"
-        android:layout_width="260dp"
+        android:id="@+id/tipo2_name_1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textColor="#000"
@@ -21,46 +21,56 @@
         android:textSize="@dimen/contact_name" />
 
     <TextView
-        android:id="@+id/Distancia"
+        android:id="@+id/Distancia1"
         android:layout_width="wrap_content"
+        android:layout_below="@id/tipo2_name_1"
+        android:layout_alignRight="@id/tipo2_sub_2"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignRight="@+id/tipo_name_1"
-        android:layout_marginEnd="15dp"
-        android:paddingBottom="5dp"
-        android:text="distancia"
+        android:text="subtitulo2"
         android:textColor="#000"
+        android:layout_alignParentEnd="true"
         android:textSize="@dimen/contact_number" />
 
     <TextView
-        android:id="@+id/tipo_sub_1"
+        android:id="@+id/tipo2_sub_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tipo_name_1"
+        android:layout_below="@id/tipo2_name_1"
         android:paddingBottom="5dp"
+        android:layout_toRightOf="@id/thumbnail"
         android:text="subtitulo"
         android:textColor="#000"
         android:textSize="@dimen/contact_number" />
 
     <TextView
-        android:id="@+id/tipo_sub_2"
+        android:id="@+id/tipo2_sub_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tipo_sub_1"
+        android:layout_toRightOf="@id/tipo2_sub_1"
+        android:layout_below="@id/tipo2_name_1"
+        android:layout_marginStart="35dp"
         android:text="subtitulo2"
         android:textColor="#000"
         android:textSize="@dimen/contact_number" />
 
     <TextView
-        android:id="@+id/tipo_sub_3"
+        android:id="@+id/tipo2_sub_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tipo_sub_1"
-        android:layout_alignRight="@id/tipo_sub_2"
-        android:layout_centerHorizontal="true"
-        android:text="@string/Vermas"
-        android:layout_marginEnd="30dp"
+        android:layout_below="@id/tipo2_sub_1"
+        android:text="subtitulo2"
+        android:textColor="#000"
+        android:textSize="@dimen/contact_number" />
+
+    <TextView
+        android:id="@+id/tipo2_sub_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/tipo2_sub_2"
+        android:layout_below="@+id/tipo2_sub_1"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:text="@string/Vermas"
         android:textColor="#000"
         android:textSize="@dimen/contact_number" />
 
