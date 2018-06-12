@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,11 +153,40 @@ public class Usuario {
         return log;
     }
 
+    public void busquedaUsuario(String email) {
+        try {
+            SQLiteDatabase db = conexion.getWritableDatabase();
+            Cursor cur = db.rawQuery("SELECT CorreoU, NombreU , Contraseña  FROM usuario WHERE CorreoU ='" + email + "'", null);
+            if (cur.moveToFirst()) {
+                Correo =cur.getString(0);
+                Contraseña= cur.getString(1);
+                Nombre = cur.getString(2);
+                tipo = cur.getString(3);
+            }
+        }catch (Exception e){
+            Log.e(TAG,"CARGA" + e.getMessage());
+        }
+
+    }
+
     public String getTipo() {
         return tipo;
     }
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public void Actualiza( String nombre, String contraseña )
+    {
+        boolean log = true;
+        try{
+            SQLiteDatabase db = conexion.getWritableDatabase();
+            db.execSQL("UPDATE usuario SET   NombreU  = '" + nombre + "', Contraseña = '" + contraseña + "' WHERE  CorreoU = '" + Correo + "'");
+            db.close();
+
+        }catch (Exception e){
+            Log.e(TAG,"no actualizo" + e.getMessage());
+        }
     }
 }
