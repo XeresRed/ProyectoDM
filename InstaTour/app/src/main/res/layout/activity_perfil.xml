@@ -1,16 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".perfil">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/tool_bar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:orientation="vertical">
+
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="180dp"
-        android:layout_height="31dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="86dp" />
-</android.support.constraint.ConstraintLayout>
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="35dp"
+        android:drawableEnd="@drawable/mapt"
+        android:textColor="@color/primary_text"
+        android:textAlignment="textStart"
+        android:text="  Información de Perfil"
+        android:textSize="25sp"
+        tools:ignore="RtlCompat"
+        android:background="@drawable/textrounder"/>
+
+
+
+        <TextView
+            android:id="@+id/txtcorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:width="300dp"
+            android:drawableStart="@drawable/message"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txtEdicionNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:width="300dp"
+            android:drawableStart="@drawable/idcard"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txtcontraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:width="300dp"
+            android:drawableStart="@drawable/lock"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+
+
+
+    </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+</RelativeLayout>

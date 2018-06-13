@@ -102,12 +102,13 @@ public class Menu extends AppCompatActivity implements AlbumsAdapterListener{
                 }
             });
 
+            final String finalPermiso = permiso;
             deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Toast.makeText(Menu.this,"boton cliente" , Toast.LENGTH_SHORT).show();
-                    fam.close(true);
+                    Intent i = new Intent(v.getContext(), perfil.class);
+                    i.putExtra("usuario", finalPermiso);
+                    startActivity(i);
                 }
             });
         }

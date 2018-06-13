@@ -44,6 +44,8 @@
             </intent-filter>
         </activity>
 
+
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -62,6 +64,7 @@
         <activity android:name=".sitios_tipo_1" />
         <activity android:name=".perfil" />
         <activity android:name=".sitios_tipo_2"></activity>
+
     </application>
 
 </manifest>
